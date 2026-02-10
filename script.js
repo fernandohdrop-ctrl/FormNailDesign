@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initPriceMask();
     initConditionalOtherFields(); // Initialize logic for 'Outro' fields
     updateProgressBar();
+
+    // Clean URL if it has query params (from accidental form submits)
+    if (window.location.search) {
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+    }
 });
 
 // ===== PROGRESS BAR =====
