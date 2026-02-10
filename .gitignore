@@ -1,1 +1,3 @@
-/.temp_ag_kit
+node_modules
+.env
+.temp_ag_kit
