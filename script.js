@@ -435,7 +435,6 @@ document.addEventListener('click', (e) => {
         if (document.getElementById('errorModal').classList.contains('show')) closeErrorModal();
     }
 });
-
 // Close modal on Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -443,3 +442,9 @@ document.addEventListener('keydown', (e) => {
         if (document.getElementById('errorModal').classList.contains('show')) closeErrorModal();
     }
 });
+
+// ===== EXPOSE TO WINDOW (Required for Inline HTML Events with type="module") =====
+window.addServico = addServico;
+window.removeServico = removeServico;
+window.closeModal = closeModal;
+window.closeErrorModal = closeErrorModal;

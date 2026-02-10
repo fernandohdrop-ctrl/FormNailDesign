@@ -8,6 +8,12 @@
         ['#d9ff33', '#ccff00', '#f0f0f0'], // Light Lime, Acid Lime, Off-white
     ];
 
+    const opacityMap = {
+        subtle: 0.7,
+        medium: 0.85,
+        strong: 1,
+    };
+
     // State
     let beams = [];
     let canvas = null;
