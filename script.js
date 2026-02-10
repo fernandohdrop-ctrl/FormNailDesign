@@ -62,7 +62,10 @@ function addServico() {
     // Add price mask to new input
     const newPriceInput = newItem.querySelector('.preco-input');
     newPriceInput.addEventListener('input', handlePriceMask);
-    newPriceInput.focus();
+
+    // Focus on the name input for better UX
+    const newNameInput = newItem.querySelector('input[name*="[nome]"]');
+    if (newNameInput) newNameInput.focus();
 }
 
 function removeServico(button) {
