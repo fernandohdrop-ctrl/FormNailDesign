@@ -59,6 +59,10 @@
 
         // Calculate pulsing opacity
         // Using intensity "strong" by default
+        if (typeof opacityMap === 'undefined') {
+            console.error('opacityMap is undefined!');
+            return;
+        }
         const pulsingOpacity = beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * opacityMap[intensity];
 
         const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
