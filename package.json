@@ -1,0 +1,24 @@
+{
+    "name": "form-agente-ia",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "server": "node server.js",
+        "start": "concurrently \"npm run server\" \"npm run dev\"",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.0",
+        "vite": "^6.0.0"
+    },
+    "dependencies": {
+        "@tsparticles/engine": "^3.9.1",
+        "@tsparticles/slim": "^3.9.1",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "nodemailer": "^6.9.13"
+    }
+}

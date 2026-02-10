@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Briefing para criação de Agente de IA personalizado para Nail Design - Domu Solutions">
+    <title>Briefing - Agente de IA para Nail Design | Domu Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="/assets/index-BMUkkuLa.css">
+</head>
+
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Background Stars Container will be inserted here by JS -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Domu Solutions</div>
+            <div class="header-text">
+                <span class="badge">IA + WhatsApp</span>
+                <h1>Briefing - Agente de IA para Nail Design</h1>
+                <p class="subtitle">Preencha as informações abaixo para criarmos seu assistente virtual personalizado
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Form -->
+    <main class="main-container">
+        <form id="briefingForm" class="form-container" novalidate>
+
+            <!-- SEÇÃO 1: INFORMAÇÕES DO NEGÓCIO -->
+            <section class="form-section" data-section="1">
+                <div class="section-header">
+                    <span class="section-icon">🏢</span>
+                    <h2>Informações do Negócio</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label for="nomeNegocio">Nome do salão/profissional <span class="required">*</span></label>
+                        <input type="text" id="nomeNegocio" name="nomeNegocio" required
+                            placeholder="Digite o nome do seu negócio">
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempoAtuacao">Tempo de atuação</label>
+                        <select id="tempoAtuacao" name="tempoAtuacao">
+                            <option value="">Selecione...</option>
+                            <option value="menos1">Menos de 1 ano</option>
+                            <option value="1a3">1-3 anos</option>
+                            <option value="3a5">3-5 anos</option>
+                            <option value="mais5">Mais de 5 anos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localizacao">Localização - Bairro/Cidade <span class="required">*</span></label>
+                        <input type="text" id="localizacao" name="localizacao" required
+                            placeholder="Ex: Jardins, São Paulo">
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horarioFuncionamento">Horário de funcionamento</label>
+                        <input type="text" id="horarioFuncionamento" name="horarioFuncionamento"
+                            placeholder="Ex: Seg-Sex 9h-18h, Sáb 9h-14h">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estrutura</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="estrutura" value="sozinha">
+                                <span class="radio-custom"></span>
+                                Trabalho sozinha
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="estrutura" value="equipe">
+                                <span class="radio-custom"></span>
+                                Tenho equipe
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientesSemana">Quantidade de clientes por semana</label>
+                        <input type="number" id="clientesSemana" name="clientesSemana" min="0" placeholder="Ex: 20">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: SERVIÇOS E PRECIFICAÇÃO -->
+            <section class="form-section" data-section="2">
+                <div class="section-header">
+                    <span class="section-icon">⭐</span>
+                    <h2>Serviços e Precificação</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label>Lista de Serviços <span class="required">*</span></label>
+                        <div id="servicosContainer">
+                            <div class="servico-item" data-index="0">
+                                <div class="servico-grid">
+                                    <div class="servico-field">
+                                        <label>Nome do serviço</label>
+                                        <input type="text" name="servicos[0][nome]" value="Manicure simples"
+                                            placeholder="Nome do serviço">
+                                    </div>
+                                    <div class="servico-field">
+                                        <label>Preço</label>
+                                        <input type="text" name="servicos[0][preco]" value="R$ 35,00"
+                                            class="preco-input" placeholder="R$ 0,00">
+                                    </div>
+                                    <div class="servico-field">
+                                        <label>Duração</label>
+                                        <input type="text" name="servicos[0][duracao]" value="45 min"
+                                            class="duracao-input" placeholder="Ex: 45 min">
+                                    </div>
+                                    <button type="button" class="btn-remove-servico" onclick="removeServico(this)"
+                                        title="Remover serviço">
+                                        <span>✕</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add-servico" onclick="addServico()">
+                            <span>+</span> Adicionar Serviço
+                        </button>
+                        <span class="error-message" id="servicosError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pacotesPromocoes">Pacotes/Promoções</label>
+                        <textarea id="pacotesPromocoes" name="pacotesPromocoes" rows="3"
+                            placeholder="Descreva pacotes e condições especiais"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Formas de pagamento</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="formasPagamento" value="dinheiro">
+                                <span class="checkbox-custom"></span>
+                                Dinheiro
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="formasPagamento" value="pix">
+                                <span class="checkbox-custom"></span>
+                                PIX
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="formasPagamento" value="debito">
+                                <span class="checkbox-custom"></span>
+                                Cartão Débito
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="formasPagamento" value="credito">
+                                <span class="checkbox-custom"></span>
+                                Cartão Crédito
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="formasPagamento" value="outros" class="check-outro"
+                                    data-target="formasPagamentoOutro">
+                                <span class="checkbox-custom"></span>
+                                Outros
+                            </label>
+                        </div>
+                        <div class="input-outro" id="formasPagamentoOutro">
+                            <input type="text" name="formasPagamentoOutroInput"
+                                placeholder="Especifique outras formas de pagamento">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Taxa de deslocamento</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="taxaDeslocamento" value="nao"
+                                    onchange="toggleTaxaDeslocamento(false)">
+                                <span class="radio-custom"></span>
+                                Não cobra
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="taxaDeslocamento" value="sim"
+                                    onchange="toggleTaxaDeslocamento(true)">
+                                <span class="radio-custom"></span>
+                                Cobra
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-field" id="taxaDeslocamentoField" style="display: none;">
+                        <label for="taxaDeslocamentoDescricao">Explique a taxa de deslocamento</label>
+                        <textarea id="taxaDeslocamentoDescricao" name="taxaDeslocamentoDescricao" rows="2"
+                            placeholder="Descreva como funciona a taxa de deslocamento"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3: AGENDAMENTO -->
+            <section class="form-section" data-section="3">
+                <div class="section-header">
+                    <span class="section-icon">📅</span>
+                    <h2>Agendamento</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label for="comoFuncionaAgendamento">Como funciona o agendamento hoje?</label>
+                        <textarea id="comoFuncionaAgendamento" name="comoFuncionaAgendamento" rows="3"
+                            placeholder="Descreva seu processo atual de agendamento"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aceita agendamento no mesmo dia?</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="agendamentoMesmoDia" id="agendamentoMesmoDia">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Não</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="antecedenciaMinima">Antecedência mínima</label>
+                        <select id="antecedenciaMinima" name="antecedenciaMinima">
+                            <option value="">Selecione...</option>
+                            <option value="sem">Sem antecedência</option>
+                            <option value="1hora">1 hora</option>
+                            <option value="3horas">3 horas</option>
+                            <option value="1dia">1 dia</option>
+                            <option value="2dias">2 dias</option>
+                            <option value="outro">Outro (Especifique abaixo)</option>
+                        </select>
+                        <div class="input-outro" id="antecedenciaMinimaOutro" style="display: none;">
+                            <input type="text" name="antecedenciaMinimaOutroInput"
+                                placeholder="Especifique a antecedência mínima">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Trabalha aos finais de semana?</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="finaisSemana" value="sabado">
+                                <span class="checkbox-custom"></span>
+                                Sábado
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="finaisSemana" value="domingo">
+                                <span class="checkbox-custom"></span>
+                                Domingo
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horariosProcurados">Horários mais procurados</label>
+                        <input type="text" id="horariosProcurados" name="horariosProcurados"
+                            placeholder="Ex: Manhã, horário de almoço, fim de tarde">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prazoRemarcar">Prazo mínimo para remarcar</label>
+                        <select id="prazoRemarcar" name="prazoRemarcar">
+                            <option value="">Selecione...</option>
+                            <option value="mesmoDia">Mesmo dia</option>
+                            <option value="1dia">1 dia</option>
+                            <option value="2dias">2 dias</option>
+                            <option value="3dias">3 dias</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="politicaCancelamento">Política de cancelamento</label>
+                        <textarea id="politicaCancelamento" name="politicaCancelamento" rows="3"
+                            placeholder="Descreva sua política de cancelamento"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 4: PÚBLICO E ATENDIMENTO -->
+            <section class="form-section" data-section="4">
+                <div class="section-header">
+                    <span class="section-icon">👥</span>
+                    <h2>Público e Atendimento</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label>Faixa etária do cliente ideal</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="faixaEtaria" value="18-25">
+                                <span class="checkbox-custom"></span>
+                                18-25
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="faixaEtaria" value="26-35">
+                                <span class="checkbox-custom"></span>
+                                26-35
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="faixaEtaria" value="36-45">
+                                <span class="checkbox-custom"></span>
+                                36-45
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="faixaEtaria" value="46-60">
+                                <span class="checkbox-custom"></span>
+                                46-60
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="faixaEtaria" value="60+">
+                                <span class="checkbox-custom"></span>
+                                60+
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Perfil dos clientes</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="executivas">
+                                <span class="checkbox-custom"></span>
+                                Executivas
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="jovens">
+                                <span class="checkbox-custom"></span>
+                                Jovens
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="noivas">
+                                <span class="checkbox-custom"></span>
+                                Noivas
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="maes">
+                                <span class="checkbox-custom"></span>
+                                Mães
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="estudantes">
+                                <span class="checkbox-custom"></span>
+                                Estudantes
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="perfilClientes" value="outro" class="check-outro"
+                                    data-target="perfilClientesOutro">
+                                <span class="checkbox-custom"></span>
+                                Outro
+                            </label>
+                        </div>
+                        <div class="input-outro" id="perfilClientesOutro">
+                            <input type="text" name="perfilClientesOutroInput"
+                                placeholder="Especifique o perfil dos clientes">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequenciaRetorno">Frequência de retorno</label>
+                        <select id="frequenciaRetorno" name="frequenciaRetorno">
+                            <option value="">Selecione...</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="quinzenal">Quinzenal</option>
+                            <option value="mensal">Mensal</option>
+                            <option value="esporadica">Esporádica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dúvidas mais frequentes</label>
+                        <input type="text" name="duvidasFrequentes1" placeholder="Dúvida 1" class="mb-2">
+                        <input type="text" name="duvidasFrequentes2" placeholder="Dúvida 2" class="mb-2">
+                        <input type="text" name="duvidasFrequentes3" placeholder="Dúvida 3">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Objeções mais comuns</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="objecoes" value="precoAlto">
+                                <span class="checkbox-custom"></span>
+                                Preço alto
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="objecoes" value="faltaTempo">
+                                <span class="checkbox-custom"></span>
+                                Falta de tempo
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="objecoes" value="naoConhece">
+                                <span class="checkbox-custom"></span>
+                                Não conhece o trabalho
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="objecoes" value="medoAlergias">
+                                <span class="checkbox-custom"></span>
+                                Medo de alergias
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="objecoes" value="outras" class="check-outro"
+                                    data-target="objecoesOutro">
+                                <span class="checkbox-custom"></span>
+                                Outras
+                            </label>
+                        </div>
+                        <div class="input-outro" id="objecoesOutro">
+                            <input type="text" name="objecoesOutroInput" placeholder="Especifique outras objeções">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programaFidelidade">Programa de fidelidade</label>
+                        <textarea id="programaFidelidade" name="programaFidelidade" rows="3"
+                            placeholder="Descreva seu programa de fidelidade, se houver"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 5: DIFERENCIAIS E POSICIONAMENTO -->
+            <section class="form-section" data-section="5">
+                <div class="section-header">
+                    <span class="section-icon">💎</span>
+                    <h2>Diferenciais e Posicionamento</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label for="diferenciais">O que te diferencia da concorrência <span
+                                class="required">*</span></label>
+                        <textarea id="diferenciais" name="diferenciais" rows="4" required
+                            placeholder="Conte o que torna seu trabalho único"></textarea>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="produtosTecnicas">Produtos/técnicas específicas</label>
+                        <input type="text" id="produtosTecnicas" name="produtosTecnicas"
+                            placeholder="Marcas e métodos que utiliza">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Especialidade</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="especialidade" value="nailArt">
+                                <span class="checkbox-custom"></span>
+                                Nail art
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="especialidade" value="alongamento">
+                                <span class="checkbox-custom"></span>
+                                Alongamento
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="especialidade" value="blindagem">
+                                <span class="checkbox-custom"></span>
+                                Blindagem
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="especialidade" value="spaPes">
+                                <span class="checkbox-custom"></span>
+                                Spa dos pés
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="especialidade" value="outro" class="check-outro"
+                                    data-target="especialidadeOutro">
+                                <span class="checkbox-custom"></span>
+                                Outro
+                            </label>
+                        </div>
+                        <div class="input-outro" id="especialidadeOutro">
+                            <input type="text" name="especialidadeOutroInput"
+                                placeholder="Especifique sua especialidade">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Posicionamento</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="posicionamento" value="premium">
+                                <span class="radio-custom"></span>
+                                Premium/luxo
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="posicionamento" value="custoBeneficio">
+                                <span class="radio-custom"></span>
+                                Custo-benefício
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="posicionamento" value="rapido">
+                                <span class="radio-custom"></span>
+                                Rápido e prático
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="posicionamento" value="personalizado">
+                                <span class="radio-custom"></span>
+                                Personalizado/exclusivo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 6: COMUNICAÇÃO ATUAL -->
+            <section class="form-section" data-section="6">
+                <div class="section-header">
+                    <span class="section-icon">💬</span>
+                    <h2>Comunicação Atual</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label>Como seus clientes falam com você</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="estiloCliente" value="formal">
+                                <span class="radio-custom"></span>
+                                Formal
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="estiloCliente" value="informal">
+                                <span class="radio-custom"></span>
+                                Informal/amigável
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="estiloCliente" value="direto">
+                                <span class="radio-custom"></span>
+                                Direto ao ponto
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tom de atendimento preferido</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tomAtendimento" value="profissional">
+                                <span class="radio-custom"></span>
+                                Profissional e educado
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tomAtendimento" value="descontraido">
+                                <span class="radio-custom"></span>
+                                Descontraído e próximo
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tomAtendimento" value="consultivo">
+                                <span class="radio-custom"></span>
+                                Consultivo
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usaEmojis">Usa emojis?</label>
+                        <select id="usaEmojis" name="usaEmojis">
+                            <option value="">Selecione...</option>
+                            <option value="raramente">Raramente</option>
+                            <option value="asVezes">Às vezes</option>
+                            <option value="frequentemente">Frequentemente</option>
+                            <option value="sempre">Sempre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frasesBordoes">Frases/bordões que sempre usa</label>
+                        <textarea id="frasesBordoes" name="frasesBordoes" rows="3"
+                            placeholder="Expressões características do seu atendimento"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 7: FLUXO DE ATENDIMENTO DESEJADO -->
+            <section class="form-section" data-section="7">
+                <div class="section-header">
+                    <span class="section-icon">🤖</span>
+                    <h2>Fluxo de Atendimento Desejado</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label>O agente de IA deve ser capaz de:</label>
+                        <div class="checkbox-group vertical">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="informacoes">
+                                <span class="checkbox-custom"></span>
+                                Dar informações (preços, horários)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="agendamentos">
+                                <span class="checkbox-custom"></span>
+                                Fazer agendamentos completos
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="confirmacoes">
+                                <span class="checkbox-custom"></span>
+                                Enviar confirmações automáticas
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="lembretes">
+                                <span class="checkbox-custom"></span>
+                                Enviar lembretes de agendamento
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="posCuidados">
+                                <span class="checkbox-custom"></span>
+                                Responder dúvidas sobre cuidados pós-serviço
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="feedback">
+                                <span class="checkbox-custom"></span>
+                                Coletar feedback após atendimento
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="capacidadesIA" value="outros" class="check-outro"
+                                    data-target="capacidadesIAOutro">
+                                <span class="checkbox-custom"></span>
+                                Outros
+                            </label>
+                        </div>
+                        <div class="input-outro" id="capacidadesIAOutro">
+                            <input type="text" name="capacidadesIAOutroInput"
+                                placeholder="Especifique outras capacidades">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quando transferir para atendimento humano:</label>
+                        <div class="checkbox-group vertical">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="personalizados">
+                                <span class="checkbox-custom"></span>
+                                Pedidos muito específicos/personalizados
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="reclamacoes">
+                                <span class="checkbox-custom"></span>
+                                Reclamações
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="negociacoes">
+                                <span class="checkbox-custom"></span>
+                                Negociações de preço
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="orcamentosComplexos">
+                                <span class="checkbox-custom"></span>
+                                Orçamentos complexos
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="nunca">
+                                <span class="checkbox-custom"></span>
+                                Nunca transferir
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="transferirHumano" value="outros" class="check-outro"
+                                    data-target="transferirHumanoOutro">
+                                <span class="checkbox-custom"></span>
+                                Outros
+                            </label>
+                        </div>
+                        <div class="input-outro" id="transferirHumanoOutro">
+                            <input type="text" name="transferirHumanoOutroInput"
+                                placeholder="Especifique quando transferir">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 8: RESTRIÇÕES E OBSERVAÇÕES -->
+            <section class="form-section" data-section="8">
+                <div class="section-header">
+                    <span class="section-icon">⚠️</span>
+                    <h2>Restrições e Observações</h2>
+                </div>
+                <div class="form-card">
+                    <div class="form-group">
+                        <label for="restricoesAgente">O que o agente NÃO deve fazer/falar</label>
+                        <textarea id="restricoesAgente" name="restricoesAgente" rows="3"
+                            placeholder="Liste restrições de comportamento do agente"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alergiasInfo">Informações sobre alergias/cuidados importantes</label>
+                        <textarea id="alergiasInfo" name="alergiasInfo" rows="3"
+                            placeholder="Informações importantes sobre alergias e cuidados"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instagram">Instagram</label>
+                        <input type="text" id="instagram" name="instagram" placeholder="@seu_perfil">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkPortfolio">Link do portfólio</label>
+                        <input type="url" id="linkPortfolio" name="linkPortfolio" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localizacaoMaps">Localização Google Maps</label>
+                        <input type="url" id="localizacaoMaps" name="localizacaoMaps"
+                            placeholder="https://maps.google.com/...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoAdicionais">Informações adicionais</label>
+                        <textarea id="infoAdicionais" name="infoAdicionais" rows="4"
+                            placeholder="Qualquer informação extra que considere importante"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit Button -->
+            <div class="form-footer">
+                <button type="submit" class="btn-submit">
+                    <span class="btn-text">Enviar Briefing</span>
+                    <span class="btn-loader" style="display: none;"></span>
+                </button>
+                <p class="form-disclaimer">Suas informações são seguras e serão usadas apenas para criar seu agente de
+                    IA</p>
+            </div>
+        </form>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h3>Briefing enviado com sucesso!</h3>
+            <p>Recebemos suas informações e em breve entraremos em contato para criar seu agente de IA personalizado.
+            </p>
+            <button type="button" class="btn-modal-close" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: var(--color-error)">❌</div>
+            <h3>Ops! Ocorreu um erro.</h3>
+            <p id="errorModalMessage">Não foi possível enviar o briefing. Tente novamente mais tarde.</p>
+            <button type="button" class="btn-modal-close" onclick="closeErrorModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="beams.js"></script>
+</body>
+
+</html>
