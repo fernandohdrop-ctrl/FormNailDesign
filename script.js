@@ -64,8 +64,10 @@ function addServico() {
     newPriceInput.addEventListener('input', handlePriceMask);
 
     // Focus on the name input for better UX
-    const newNameInput = newItem.querySelector('input[name*="[nome]"]');
-    if (newNameInput) newNameInput.focus();
+    setTimeout(() => {
+        const newNameInput = newItem.querySelector('input[name*="[nome]"]');
+        if (newNameInput) newNameInput.focus();
+    }, 100);
 }
 
 function removeServico(button) {
